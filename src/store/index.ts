@@ -1,9 +1,9 @@
 import { createStore } from "vuex";
+import { RootState } from "@/store/interfaces";
 
-export default createStore({
-  state: {},
-  getters: {},
-  mutations: {},
-  actions: {},
-  modules: {},
-});
+
+import root from "./modules/root";
+
+
+export const store = createStore<RootState>(root);
+

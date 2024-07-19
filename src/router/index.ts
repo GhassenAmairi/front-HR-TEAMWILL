@@ -1,21 +1,64 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
-import HomeView from "../views/HomeView.vue";
+//import HomeView from "../views/HomeView.vue";
+
+import searchCriterias from "../components/searchCriterias/searchCriterias.vue";
+
+
+import JobComponent from "../components/JobComponent.vue";
+
 
 const routes: Array<RouteRecordRaw> = [
+  
   {
-    path: "/",
-    name: "home",
-    component: HomeView,
+    path: "/recherche",
+    name: "recherche",
+    component: searchCriterias,
   },
   {
-    path: "/about",
-    name: "about",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/AboutView.vue"),
+    path: "/Recherche",
+    name: "Recherche",
+    component: () => import("../views/RechercheView.vue"),
   },
+  {
+  path: "/Job",
+  name: "Job",
+  component: JobComponent,
+  },
+  {
+    path:"/definejob",
+    name:"DefineJob",
+    component: () => import("../views/DefineJobView.vue")
+  },
+  {
+    path:"/dashbord",
+    name:"dashbord",
+    component:  () => import("../views/DashbordView.vue"),
+  },
+  {
+    path:"/upload",
+    name:"upload",
+    component: () => import("../views/UploadpdfView.vue")
+  },
+  {
+    path: "/DefineParametre",
+    name: "DefineParametre",
+    component: () => import("../views/DefineParametre.vue")
+  },
+  {
+    path: "/jobdetails",
+    name: "jobdetails",
+    component: () => import("../views/JobDetails.vue")
+  },
+  {path: "/PageHome ", name: "PageHome", component: () => import("../views/PageView.vue")}, 
+  {path: "/definejob", name: "definejob", component: () => import("../views/DefineJobView.vue")},
+  {path: "/Login", name: "Login", component: () => import("../views/LoginView.vue")},
+  {path:"/Accueil", name:"Accueil", component: () => import("../views/AccueilView.vue")},
+  {path: "/test,", name: "test", component: () => import("../views/test.vue")},
+  
+
+
+
+
 ];
 
 const router = createRouter({
