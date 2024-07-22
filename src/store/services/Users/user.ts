@@ -9,7 +9,7 @@ class UserData {
     id= 0;
     email='';
     password= '';
-    jsonData: any;
+    jsonData = {};
 }
 
 export const mutations ={

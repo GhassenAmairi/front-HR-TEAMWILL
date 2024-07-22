@@ -53,13 +53,12 @@
 
 <script lang="ts">
 import { Vue } from 'vue-class-component';
-import { ref, computed } from 'vue';
+import { computed } from 'vue';
 import axios from 'axios';
 import { LoginResponnse } from '@/types';
-import { store } from '@/store';
 import { useStore } from 'vuex';
 import {reactive} from 'vue';
-import {} from '@/store/services/Users/user';
+import '@/store/services/Users/user';
 export default class LoginView extends Vue {
   username = "";
   password = "";
@@ -100,8 +99,8 @@ export default class LoginView extends Vue {
 
     return { id, userusername, userPassword };
   }
-
-  async submitUser(user: any): Promise<void> {
+/* eslint-disable */
+  async submitUser(user: any ): Promise<void> {
     try {
       if (user.id) {
         const response = await axios.put<LoginResponnse>('http://localhost:8000/', user);

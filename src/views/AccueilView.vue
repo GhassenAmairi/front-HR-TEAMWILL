@@ -1,49 +1,37 @@
 <template>
   <div class="Accueil">
-    <!----<q-page>--->
-      <div class="container-fluid dashboard">
-        <div class="row justify-content-center">
-          <div class="col-12 col-md-8 col-lg-6">
-            <h1 class="text-center mb-4">What type of contacts do you want to find</h1>
-            <q-form class="contact-form">
-              <div class="form-group">
-               
-                 <q-item-section side>
-                  <q-btn @click="$router.push('/PageHome')" >Manager
-                    <q-icon name="keyboard_arrow_right"  style=" margin-left: 100px;"/>
-                  </q-btn>
-                   
-                </q-item-section>
+    <div class="container-fluid dashboard">
+      <div class="row justify-content-center">
+        <div class="col-12 col-md-8 col-lg-6">
+          <h1 class="text-center mb-4">What type of contacts do you want to find?</h1>
+          <div class="contact-form">
+            <div class="form-group">
+              <div class="contact-item"  @click="$router.push('/score')">
+                <i class="material-icons">handshake</i>
+                <span>Leads</span>
+                <i class="material-icons arrow">keyboard_arrow_right</i>
               </div>
-              <div class="form-group">
-                
-                <q-item-section side>
-                  
-                  <q-btn @click="$router.push('/dashbord')">Job
-                    <q-icon name="keyboard_arrow_right" style="    margin-left: 70px;"/>
-                  </q-btn>
-                </q-item-section>
+            </div>
+            <div class="form-group">
+              <div class="contact-item" @click="$router.push('/dashboard')">
+                <i class="material-icons">badge</i>
+                <span>Candidates</span>
+                <i class="material-icons arrow">keyboard_arrow_right</i>
               </div>
-              <div class="form-group">
-                
-               <q-item-section side>
-                  
-                  <q-btn @click="$router.push('/')">Other 
-                    <q-icon name="keyboard_arrow_right"  style="    margin-left: 300px;"/>
-                  </q-btn>
-                </q-item-section>
+            </div>
+            <div class="form-group">
+              <div class="contact-item" @click="$router.push('/')">
+                <i class="material-icons">add</i>
+                <span>Other</span>
+                <i class="material-icons arrow">keyboard_arrow_right</i>
               </div>
-              <div class="text-center">
-                <q-btn color="primary" text-color="white" label="Submit" @click="onSubmit" class="mt-3" />
-              </div>
-            </q-form>
+            </div>
           </div>
         </div>
       </div>
-  <!---</q-page>--->
+    </div>
   </div>
 </template>
-
 <script lang="ts">
 import { Vue } from 'vue-class-component';
 import { ref } from 'vue';
@@ -76,6 +64,31 @@ export default class AccueilView extends Vue {
 
 .form-group {
   margin-bottom: 1rem;
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.contact-item:hover {
+  background-color: #f1f1f1;
+}
+
+.contact-item i {
+  font-size: 24px;
+  color: #93a84c;
+}
+
+.contact-item .arrow {
+  color: #93a84c;
 }
 
 .text-center {
