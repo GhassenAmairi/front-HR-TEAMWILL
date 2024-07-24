@@ -187,9 +187,10 @@
 </template>
 
 <script lang="ts">
-import { store } from '@/store'
+import store  from '@/store'
 import router from '@/router'
 import { Options, Vue } from 'vue-class-component'
+
 
 export default class SearchCriterias extends Vue {
   created() {
@@ -252,7 +253,6 @@ export default class SearchCriterias extends Vue {
     this.$router.push({ name: 'PageHome' }) //Page
     this.$router.push({ name: 'DefineParametre' }) //DefineParametre
     this.$router.push({ name: 'definejob' }) //DefineJob
-
     this.$router.push({ name: 'upload' }) //upload
     this.$router.push({ name: 'jobdetails' }) //jobdetails
     this.$router.push({ name: 'Login' }) //login
@@ -319,7 +319,6 @@ export default class SearchCriterias extends Vue {
 .upload-section textarea {
   width: 100%;
 }
-
 .file-name {
   margin-top: 10px;
 }

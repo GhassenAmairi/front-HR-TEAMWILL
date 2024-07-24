@@ -1,7 +1,7 @@
 import { createApp } from 'vue';
 import App from './App.vue';
 import router from './router';
-import { store } from './store';
+import  store  from './store';
 import '@/css/customtheme.scss';
 import {Quasar} from 'quasar';
 import quasarUserOptions from './quasar-user-options';
@@ -13,6 +13,9 @@ import { loadFonts } from './plugins/WebFontLoader';
 loadFonts();
 
 export const i18n = createI18n;
+
+
+
 createApp(App)
   .use(Quasar, quasarUserOptions)
   .use(i18n)
