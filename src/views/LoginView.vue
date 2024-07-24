@@ -61,10 +61,14 @@ import {reactive} from 'vue';
 import '@/store/services/Users/user';
 import {} from '@/store/services/Users/user';
 import { mapState, mapActions } from 'vuex';
+import { QBtn } from 'quasar';
 @Options({
   computed: {
         ...mapState(['loginForm']),
         ...mapActions(['loginWithCredentials']),
+    },
+    components: {
+    QBtn
     },
 
   })
