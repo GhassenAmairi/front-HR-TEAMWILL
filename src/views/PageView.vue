@@ -29,9 +29,9 @@
 
       <figure class="job-source disabled">
         <input type="checkbox" id="bullhorn" disabled />
-        <label for="bullhorn">Bullhorn</label>
-        <img src="" alt="Bullhorn" />
-        <span>Connect your Bullhorn account in the Apps section to use it as a data source</span>
+        <!-- <label for="bullhorn">Bullhorn</label> -->
+        <span style="    top: 30% !important">Connect your Bullhorn account in the Apps section to use it as a data source</span>
+        <img src="@/assets/images/bullhorn.png" alt="Bullhorn"  style="width: 120px; height: 100px;    margin-top: 40px;"/>
       </figure>
     </div>
 
@@ -50,6 +50,7 @@
     label="Continue"
     icon-right="arrow_forward"
     class="continue-btn"
+    @click="$router.push('/dashbord')"
   />
 </div>
   </div>

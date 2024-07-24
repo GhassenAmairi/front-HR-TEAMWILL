@@ -187,7 +187,7 @@
 </template>
 
 <script lang="ts">
-import { store } from '@/store'
+import  store  from '@/store'
 import router from '@/router'
 import { Options, Vue } from 'vue-class-component'
 

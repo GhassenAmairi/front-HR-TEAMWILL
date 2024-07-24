@@ -64,6 +64,11 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import("../views/DefineJobView.vue"),
   },
   {
+    path: "/text",
+    name: "text",
+    component: () => import("../views/TextComponent.vue"),
+  },
+  {
     path: "/Login",
     name: "Login",
     component: () => import("../views/LoginView.vue"),
