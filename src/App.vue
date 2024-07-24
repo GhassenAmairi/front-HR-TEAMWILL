@@ -12,6 +12,8 @@
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
 import Header from './components/layouts/Header.vue';
+
+
 // import SideBar from './shared/SideBar.vue';
 
 @Options({

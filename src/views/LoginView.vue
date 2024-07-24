@@ -30,10 +30,10 @@
             <q-btn color="primary" 
               text-color="white" 
               label="Se connecter" 
-              href="/dashbord" 
-              @click="login" 
+              
+              @click="login()" 
               class="mb-3" 
-              :disable="!validateCredentials(username,password)"
+              
                   />
             <div class="text-grey-8">Don't have an account yet?
               <a href="#" class="text-dark text-weight-bold" style="text-decoration: none">Sign
@@ -52,20 +52,40 @@
 </template>
 
 <script lang="ts">
-import { Vue } from 'vue-class-component';
-import { ref, computed } from 'vue';
+import { Options, Vue } from 'vue-class-component';
+import {  computed } from 'vue';
 import axios from 'axios';
 import { LoginResponnse } from '@/types';
-import { store } from '@/store';
 import { useStore } from 'vuex';
 import {reactive} from 'vue';
 import {} from '@/store/services/Users/user';
+import { mapState, mapActions } from 'vuex';
+@Options({
+  computed: {
+        ...mapState(['loginForm']),
+        ...mapActions(['loginWithCredentials']),
+    },
+
+  })
 export default class LoginView extends Vue {
+ store = useStore();
+  mounted() {
+   
+ 
+    this.validateCredentials(this.username,this.password)
+  }
+  login() {
+            this.store.commit('setLogin', { username: this.username, password: this.password });
+            this.store.dispatch('loginWithCredentials');
+        }
   username = "";
   password = "";
   error = reactive({value:""});
   user : LoginResponnse ={token:"",access_token:"",token_type:""};
   errorMessage = '';
+loggedIn = false;
+  errors= '';
+  message = '';
   
  form:{name:string,email:string,password:string}={name:"",email:"",password:""};
   setup() {
@@ -115,36 +135,6 @@ export default class LoginView extends Vue {
     }
   }
 
-  async login(): Promise<void> {
-    let formData = new FormData();
-  Object.keys(this.form).forEach((key) => {
-    formData.append(key, this.form[key as keyof typeof this.form]);
-  });
-
-   
-    try {
-      const response = await axios.post<LoginResponnse>('http://localhost:8000/api/login',formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        }
-      });
-        //email: this.email,
-       // password: this.password,
-      //}
-     
-     
-      console.log(response.data);
-      const token = response.data.token;
-      localStorage.setItem('token', token);
-      this.$router.push('/dashbord');
-    } catch (err) {
-      if (axios.isAxiosError(err)) {
-        this.error.value = `Error: ${err.response?.data?.detail||err.message}`;
-      }else{
-      this.error.value = `Error: ${err}`;
-      } 
-    }
-  }
 
   onLogin() {
     //console.log('Logging in with', this.email, this.password);
@@ -176,7 +166,37 @@ export default class LoginView extends Vue {
 
   return emailRe.test(username) && passwordRe.test(password);
 }
+ async  loginWithCredentials(username: string, password: string) {
+      try {
+        const FormData =  {
+     username: '',
+      password: '',
+      full_name: '',
+      email: '',
+      body: '',
+   }
+        const response = await axios.post('http://localhost:8000/token/', FormData, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          //body: JSON.stringify({ username: username, password: password })
+        });
 
+        if (response.status!== 200) {
+          throw new Error('Invalid username or password');
+        }
+
+        const data = await response.data();
+        console.log('Login successful:', data);
+        this.loggedIn= true;
+        this.errors = '';
+        this.$router.push('/dashbord');
+      } catch (err) {
+        this.errors =   this.errors || (err as Error).message ;
+      this.loggedIn = false;
+      }
+    }
   
   }
 

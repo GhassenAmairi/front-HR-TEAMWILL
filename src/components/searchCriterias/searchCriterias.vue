@@ -296,7 +296,7 @@
 
 <script lang="ts">
 import { defineComponent ,ref } from 'vue'
-import { store } from '@/store'
+import store  from '@/store'
 import router from '@/router'
 
 

@@ -31,7 +31,7 @@
            
               <q-btn color="primary" icon-right="archive" label="Add Job" style="margin-left: left; " @click="addJob()"  no-caps  />
               <q-btn color="primary" icon-right="archive" label="Update Job"   @click="updateJob()"  no-caps  />
-              <q-btn color ="primary" icon-right ="archive" label="List Job" @click="listJob()" no-caps />
+              <q-btn color ="primary" icon-right ="archive" label="List Job" @click="list_Jobs()" no-caps />
               <div  class = "form-group" v-if="show">
                     <!----<q-input standout v-model="varia" type="text" label="whatever" class="mb-3" ></q-input>-->
                     <q-dialog :v-model= "variaaa" persistent>
@@ -281,6 +281,26 @@ export default class DefineJobView extends Vue {
     calcium: '14%',
     iron: '1%'
 },] | undefined
+
+data () {
+  return {
+    jobs:[],
+  }
+}
+mounted() {
+   
+ 
+   this.list_Job();
+ }
+methods = {
+
+list_Job() {  axios.get('http://localhost:8000/jobs/').then((response) => { 
+    console.log (response.data);
+  })
+},
+}
+
+
 
 async addJob()  {
   try {const response = await axios.post('http://localhost:8000/jobs/');
