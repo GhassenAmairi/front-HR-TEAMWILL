@@ -1,7 +1,7 @@
 <template>
   <q-layout class="theme-1" view="hHh lpr lFr">
     
-      <Header />
+      <!-- <Header /> -->
     <search-criterias/>
     
     <!-- <sideBar /> -->

@@ -13,7 +13,7 @@
               </div>
             </div>
             <div class="form-group">
-              <div class="contact-item" @click="$router.push('/dashboard')">
+              <div class="contact-item" @click="$router.push('/dashbord')">
                 <i class="material-icons">badge</i>
                 <span>Candidates</span>
                 <i class="material-icons arrow">keyboard_arrow_right</i>

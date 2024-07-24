@@ -52,7 +52,6 @@
 </template>
 
 <script lang="ts">
-import { Vue } from 'vue-class-component';
 import { computed } from 'vue';
 import { Options, Vue } from 'vue-class-component';
 import axios from 'axios';

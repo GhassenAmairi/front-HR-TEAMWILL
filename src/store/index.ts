@@ -1,5 +1,5 @@
+
 import { createStore } from "vuex";
-//import { RootState } from "@/store/interfaces";
 
 import { loginForm } from "@/types";
 
