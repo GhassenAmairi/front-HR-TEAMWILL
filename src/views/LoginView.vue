@@ -52,12 +52,14 @@
 </template>
 
 <script lang="ts">
+import { Vue } from 'vue-class-component';
+import { computed } from 'vue';
 import { Options, Vue } from 'vue-class-component';
-import {  computed } from 'vue';
 import axios from 'axios';
 import { LoginResponnse } from '@/types';
 import { useStore } from 'vuex';
 import {reactive} from 'vue';
+import '@/store/services/Users/user';
 import {} from '@/store/services/Users/user';
 import { mapState, mapActions } from 'vuex';
 @Options({
@@ -120,8 +122,8 @@ loggedIn = false;
 
     return { id, userusername, userPassword };
   }
-
-  async submitUser(user: any): Promise<void> {
+/* eslint-disable */
+  async submitUser(user: any ): Promise<void> {
     try {
       if (user.id) {
         const response = await axios.put<LoginResponnse>('http://localhost:8000/', user);

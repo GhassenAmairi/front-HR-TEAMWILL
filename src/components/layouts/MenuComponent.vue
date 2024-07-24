@@ -8,7 +8,7 @@
         <a class="nav-link " href="#">reline your search</a>
         <a class="nav-link " href="#">capagenie detais</a>
         <a class="nav-link " href="#">compagenie messaagerie</a>
-        <a class="nav-link " href="#">compagenie settings</a>
+        <a class="nav-link " href="#">compagnie settings</a>
       </nav>
     </div>
 

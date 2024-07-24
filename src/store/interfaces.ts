@@ -24,16 +24,16 @@ export interface StoreActions {
 }
 
 export interface UserState {
-  tabColumns?: any;
-  tabRows?: any;
+  tabColumns?: any[];
+  tabRows?: any[];
 }
 export interface UserGettersTypes {
-  getRows(state: UserState): any;
-  getColumns(state: UserState):
+  getRows(state: UserState): any[];
+  getColumns(state: UserState):any[];
 }
 export interface UserMutationsTypes {
-  SET_ROWS(state: UserState, payload: any): void;
-  SET_COLUMNS(state: UserState, payload: any): void;
+  SET_ROWS(state: UserState, payload: any[]): void;
+  SET_COLUMNS(state: UserState, payload: any[]): void;
 }
 export interface UserActionsTypes {
   UPDATE_ROWS({ commit }:{commit: any}, payload: any): void;
