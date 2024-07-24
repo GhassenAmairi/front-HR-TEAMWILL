@@ -12,3 +12,17 @@ interface Job {
     job: string;
   }
   
+export interface loginForm {
+    username: string;
+    password: string;
+    fullname?: string;
+    email?: string;
+
+}
+
+export const loginForm: loginForm = {
+    username: '',
+    password: '',
+    fullname: '',
+    email: '',
+}

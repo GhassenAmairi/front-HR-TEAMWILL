@@ -13,6 +13,9 @@ import { loadFonts } from './plugins/WebFontLoader';
 loadFonts();
 
 export const i18n = createI18n;
+
+
+
 createApp(App)
   .use(Quasar, quasarUserOptions)
   .use(i18n)
