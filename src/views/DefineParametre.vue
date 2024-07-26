@@ -15,7 +15,7 @@
                 <q-item-label class="labeli">Include only jobs that are open to work</q-item-label>
               </q-item-section>
               <q-item-section side>
-                <q-toggle color="grey" v-model="openToWork" val="include only job"  @change="updateOpenToWork"/>
+                <q-toggle color="grey" v-model="openToWork" val="include only job" @change="updateOpenToWork" />
               </q-item-section>
             </q-item>
           </div>
@@ -47,21 +47,22 @@
 
 
           <div class="q-pa-md">
-            <q-btn  class="full-width" label="View Contacts" style="background-color: #201246; color: aliceblue ; border-radius: 6px;" />
+            <q-btn class="full-width" label="View Contacts"
+              style="background-color: #201246; color: aliceblue ; border-radius: 6px;" />
 
 
           </div>
           <div class="q-pa-md q-gutter-sm" style="position: absolute;">
-              <q-item-section @click="$router.push('/dashbord')">
-                <button style="color: grey;">
-                  <q-icon name="keyboard_arrow_left" style="color: grey;"/>
-                  Back
-                </button>
-              </q-item-section>
-            </div>
+            <q-item-section @click="$router.push('/dashbord')">
+              <button style="color: grey;">
+                <q-icon name="keyboard_arrow_left" style="color: grey;" />
+                Back
+              </button>
+            </q-item-section>
+          </div>
           <div class="button-group text-center">
-            <q-btn class="continue" text-color="white" label="Continue" href="/defineJob" >
-            <q-icon name="keyboard_arrow_right" style="color: white;"/>
+            <q-btn class="continue" text-color="white" label="Continue" href="/jobDetails">
+              <q-icon name="keyboard_arrow_right" style="color: white;" />
             </q-btn>
           </div>
         </div>
@@ -85,11 +86,11 @@ import { useStore } from 'vuex';
 export default class DefineParametreView extends Vue {
   selection = ref();
   private store = useStore();
-    get openToWork() {
-    return  this.store.state.openToWork;
+  get openToWork() {
+    return this.store.state.openToWork;
   }
   get contactsEmails() {
-    return  this.store.state.contactsEmails;
+    return this.store.state.contactsEmails;
   }
   updateOpenToWork(value: boolean) {
     console.log("updateOpenToWork", value);
@@ -174,12 +175,13 @@ h1 {
   color: azure;
   font-weight: 700;
 }
-.continue{
+
+.continue {
   background-color: #93a84c;
   color: aliceblue;
   border-radius: 6px;
   position: absolute;
-  right : 0;
+  right: 0;
   text-decoration: none !important;
 }
 </style>

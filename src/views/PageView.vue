@@ -36,22 +36,21 @@
     </div>
 
     <div class="actions">
-  <q-btn
-    
-    text-color="grey"
-    label="Back"
-    icon="arrow_back"
-    href="/Accueil"
-    class="back-btn"
-  />
-  <q-btn
-    color="#93a84c"
-    text-color="white"
-    label="Continue"
-    icon-right="arrow_forward"
-    class="continue-btn"
-    @click="$router.push('/dashbord')"
-  />
+      <div class="row btns" >
+            <div  style="position: absolute; margin-top: 5px;">
+                    <q-item-section @click="$router.push('/')">
+                      <button style="color: grey;">
+                        <q-icon name="keyboard_arrow_left" style="color: grey;" />
+                        Back
+                      </button>
+                    </q-item-section>
+                  </div>
+                  <div class="button-group text-center" @click="$router.push('/dashbord')">
+                    <q-btn class="continue" label="Continue" >
+                      <q-icon name="keyboard_arrow_right" style="color: white;" />
+                    </q-btn>
+                  </div>
+                </div>
 </div>
   </div>
 </template>
@@ -86,7 +85,14 @@ h1 {
   justify-content: space-around;
   margin-bottom: 20px;
 }
-
+.continue {
+  background-color: #93a84c;
+  color: aliceblue;
+  border-radius: 6px;
+  position: absolute;
+  right: 0;
+  text-decoration: none !important;
+}
 .job-source {
   position: relative;
   flex: 1 1 200px;

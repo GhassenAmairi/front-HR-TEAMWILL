@@ -18,7 +18,7 @@
             </div>
             <div class="form-group">
               <q-item-section side>
-                <q-btn @click="$router.push('/')" class="panel-btn">
+                <q-btn @click="$router.push('/text')" class="panel-btn">
                   <q-icon name="text_fields" class="color" />
                   Text
                   <q-icon name="keyboard_arrow_right" class="btn-icon" />
@@ -28,7 +28,7 @@
             </div>
             <div class="form-group">
               <q-item-section side>
-                <q-btn @click="$router.push('/Recherche')" class="panel-btn">
+                <q-btn @click="$router.push('/filter')" class="panel-btn">
                   <q-icon name="filter_list" class="color" />
                   Search with filters
                   <q-icon name="keyboard_arrow_right" class="btn-icon" />

@@ -1,132 +1,146 @@
 <template>
-    <div class = "JobDetails">
-      <!----<q-page>-->
-    <div class="container-fluid dashboard">
-      <div class="row">
-        <div class="col-12 col-md-4">
-          <div class="content">
-          <nav class="nav nav-pills flex-column mb-4">
-            <br />
-            <a class="nav-link" href="Accueil">What type of contacts do you want to find</a><br /><br />
-            <a class="nav-link" href="dashbord">Please tell us more about your ideal job</a><br /><br />
-            <a class="nav-link" href="DefineJob">Define criteria and weight</a><br /><br />
-            <a class="nav-link" href="defineParametre">Refine your search</a><br /><br />
-            <a class="nav-link" href="jobDetails">Campaign details</a><br /><br />
-            <a class="nav-link" href="#">Company messaging</a><br /><br />
-            <a class="nav-link" href="#">Company settings</a><br /><br />
-          </nav>
-          </div>
-        </div>
-        <div class="col-12 col-md-8">
-          <div class="content-left">
-            <h1 class="text-center mb-4">Job Details</h1>
-            <div class="q-pa-md">
-              <div class="q-gutter-md">
-                <q-form>
-                  <div class="form-group">
-                    <q-label label="Name*">Name*</q-label><br />
-                    <q-input standout v-model ='varia' label="Job Name" type="text" class="mb-3" />
-                  </div>
-                  <div class="form-group">
-                    <q-label label="Description*">Description*</q-label><br />
-                    <!----<q-input  standout v-model ='variaa' label="Description" type="textarea" class="mb-3" />-->
-                    <div class="upload-section">
-                      <textarea class="form-control" rows="8" placeholder="Paste your content here..."></textarea>
-                    </div>
-                  </div>
-                  <h4 class="mt-4">Job Configuration</h4>
-                  <div class="form-group">
-                    <q-label label="Source*">Source*</q-label><br />
-                    <q-input standout v-model ='variaaa' label="Please choose a source" type="text" class="mb-3" />
-                    
-                  </div>
-                  <div class="text-center q-pa-md q-gutter-sm">
-                    <q-btn color="white" text-color="black" label="Back" class="mr-2" />
-                    <q-spinner-hourglass class="on-left mr-2" />
-                    <q-btn color="primary" text-color="white" label="Continue" />
-                  </div>
-                </q-form>
-              </div>
+  <div class="row">
+    <criterias-list></criterias-list>
+    <div class="col-md-8">
+      <div class="container">
+        <div class="col-md-8 offset-md-2">
+          <h2 class="campaign-title">Campaign details</h2>
+          <q-form>
+            <div class="q-mb-md">
+              <label class="input-label">Name *</label>
+              <q-input filled v-model="name" placeholder="Add or select a campaign name" dense outlined />
             </div>
-          </div>
+            <div class="q-mb-md">
+              <label class="input-label">Program *</label>
+              <q-input filled v-model="program" placeholder="Add or select a campaign program" dense outlined />
+            </div>
+            <div class="q-mb-md">
+              <label class="input-label">Description</label>
+              <q-input filled type="textarea" style="width: 760px;" v-model="description" placeholder="This is how you will describe the campaign, so make it good!" dense outlined />
+            </div>
+            <q-expansion-item label="Advanced Configuration"  class="q-mt-md">
+              <div class="q-mb-md">
+                <label class="input-label">Sender</label>
+                <q-select
+                  filled
+                  v-model="sender"
+                  placeholder="Please choose a Sender"
+                  :options="senderOptions"
+                  dense
+                  outlined
+                />
+              </div>
+              <div class="q-mb-md">
+                <label class="input-label">Source</label>
+                <q-select
+                  filled
+                  v-model="source"
+                  placeholder="Please choose a Source"
+                  :options="sourceOptions"
+                  dense
+                  outlined
+                />
+              </div>
+            </q-expansion-item>
+          </q-form>
         </div>
       </div>
+      <div class="row btns" >
+            <div  style="position: absolute; margin-top: 5px;">
+                  </div>
+                  <div class="button-group text-center" @click="$router.push('/')">
+                    <q-btn class="continue" label="Continue" >
+                      <q-icon name="keyboard_arrow_right" style="color: white;" />
+                    </q-btn>
+                  </div>
+                </div>
     </div>
-  <!----</q-page>-->
-
-    </div>
+  </div>
 </template>
 
 <script lang="ts">
-import { Vue } from 'vue-class-component';
-import { ref } from 'vue';
+import { defineComponent, ref } from 'vue';
+import { QForm, QInput, QExpansionItem, QSelect, QBtn } from 'quasar';
+import CriteriasList from '@/components/criteriasList.vue';
 
+export default defineComponent({
+  name: 'CampaignDetails',
+  components: {
+    QForm,
+    QInput,
+    QExpansionItem,
+    QSelect,
+    CriteriasList,
+    QBtn
+  },
+  setup() {
+    const name = ref('');
+    const program = ref('');
+    const description = ref('');
+    const sender = ref(null);
+    const source = ref(null);
 
-export default class JobDetailsView extends Vue {
-  inputText = ref('');
-  variaa =  ""; 
-  varia = "";
-  variaaa = "";
-    
-  
+    const senderOptions = [
+      { label: 'Sender 1', value: 'sender1' },
+      { label: 'Sender 2', value: 'sender2' }
+    ];
 
-}
+    const sourceOptions = [
+      { label: 'Source 1', value: 'source1' },
+      { label: 'Source 2', value: 'source2' }
+    ];
+
+    return {
+      name,
+      program,
+      description,
+      sender,
+      source,
+      senderOptions,
+      sourceOptions
+    };
+  }
+});
 </script>
 
 <style scoped lang="scss">
-.dashboard {
+.container {
   padding: 20px;
   background-color: #f8f9fa;
 }
 
-.nav-pills .nav-link {
-  color: #fff;
-  margin-bottom: 0.5rem;
+.campaign-title {
+  font-size: 1.5em;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #2c3e50;
 }
 
-.nav-pills .nav-link:hover {
-  background-color: #e2e6ea;
+.q-mb-md {
+  margin-bottom: 16px;
+}
+.continue{
+  background-color: #93a84c !important;
+  color: aliceblue !important;
+  border-radius: 6px;
+  position: absolute;
+  right : 0;
+  text-decoration: none !important;
+}
+.q-mt-md {
+  margin-top: 16px;
 }
 
-.content {
-  background-color: rgb(147,168,76);
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-.content-left {
-  background-color:#fff;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-.text-center {
-  text-align: center;
-}
-
-.mb-3 {
-  margin-bottom: 1rem;
-}
-
-.mb-4 {
-  margin-bottom: 1.5rem;
-}
-
-.mt-4 {
-  margin-top: 1.5rem;
-}
-
-.q-btn {
-  width: 100px;
-}
-.upload-section {
-  margin-top: 20px;
-}
-.upload-section .form-control {
+.q-input,
+.q-select,
+.q-expansion-item {
   width: 100%;
-  padding: 15px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
+}
+
+.input-label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #2c3e50;
 }
 </style>

@@ -19,26 +19,38 @@
               Model: {{ value }} (-20 to 20)
             </q-badge>
             <q-slider v-model="value" :min="-20" :max="20" :step="4" snap label color="purple" />
+            <div class="row btns" >
+            <div  style="position: absolute; margin-top: 5px;">
+                    <q-item-section @click="$router.push('/dashbord')">
+                      <button style="color: grey;">
+                        <q-icon name="keyboard_arrow_left" style="color: grey;" />
+                        Back
+                      </button>
+                    </q-item-section>
+                  </div>
+                  <div class="button-group text-center" @click="$router.push('/text')">
+                    <q-btn class="continue" text-color="white" label="Continue" >
+                      <q-icon name="keyboard_arrow_right" style="color: white;" />
+                    </q-btn>
+                  </div>
+                </div>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="q-pa-md q-gutter-sm text-center">
-      <q-btn color="white" text-color="black" label="Back" href="/dashboard" />
-      <q-spinner-hourglass class="on-left" />
-      <q-btn color="primary" text-color="white" label="Continue" />
-    </div>
   </div>
 </template>
 
 <script lang="ts">
 import CriteriasList from '@/components/criteriasList.vue';
+import { QBtn } from 'quasar';
 import { Options, Vue } from 'vue-class-component';
 
 @Options({
   components: {
-    CriteriasList
+    CriteriasList,
+    QBtn
   }
 })
 export default class UploadPdf extends Vue {
@@ -93,7 +105,17 @@ h1 {
   border: 1px solid #ccc;
   border-radius: 8px;
 }
-
+.btns {
+  margin-top: 10%;
+}
+.continue {
+  background-color: #93a84c;
+  color: aliceblue;
+  border-radius: 6px;
+  position: absolute;
+  right: 0;
+  text-decoration: none !important;
+}
 .file-name {
   margin-top: 10px;
   color: #007bff;

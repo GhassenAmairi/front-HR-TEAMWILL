@@ -1,7 +1,7 @@
 <template>
     <div class="row">
-      <criterias-list></criterias-list>
-      <div class="col-md-8 content" >
+        <criterias-list :expliciteRoute="'dashbord'"></criterias-list>
+        <div class="col-md-8 content" >
         <h1 style="margin-top: 5%;">Describe what you are looking for in a candidate</h1>
       <div class="row">
         <textarea class="large-textarea"></textarea>
@@ -15,7 +15,7 @@
               </q-item-section>
             </div>
           <div class="button-group text-center" style="margin-top: 2%;">
-            <q-btn class="continue" text-color="white" label="Continue" href="/defineJob" >
+            <q-btn class="continue" text-color="white" label="Continue" href="/filter" >
             <q-icon name="keyboard_arrow_right" style="color: white;"/>
             </q-btn>
           </div>
