@@ -1,7 +1,7 @@
 <template>
     <div class="row">
-      <criterias-list></criterias-list>
-      <div class="col-md-8 content" >
+        <criterias-list :expliciteRoute="'dashbord'"></criterias-list>
+        <div class="col-md-8 content" >
         <h1 style="margin-top: 5%;">Describe what you are looking for in a candidate</h1>
       <div class="row">
         <textarea class="large-textarea"></textarea>
