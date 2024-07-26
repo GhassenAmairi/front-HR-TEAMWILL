@@ -16,11 +16,15 @@ state: {
 
     jobsForm : jobsForm,
     userForm : userForm,
+    connected : false
        
     
 },
 
 mutations: {
+    setConnected(state, connected : boolean) {
+        state.connected = connected;
+    },
     setLogin(state,{username,password}) {
         state.loginForm.username = username;
         state.loginForm.password = password;
@@ -97,19 +101,24 @@ mutations: {
 actions: { 
     async loginWithCredentials({ commit, state }) {
         try {
-            const response = await fetch('http://localhost:8000/api/token', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(state.loginForm),
-            });
-            const data = await response.json();
-            console.log(data);
+          const response = await fetch("http://localhost:8000/api/token", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify(state.loginForm)
+          });
+          const data = await response.json();
+  
+          if (data.success) {
+            commit("setConnected", true);
+          } else {
+            console.error("Login failed:", data.message);
+          }
         } catch (error) {
-            console.error("Error during login:", error);
+          console.error("Error during login:", error);
         }
-    },
+      },
 
     async fetchJobs({ commit ,state}) {
         const response = await fetch('http://localhost:8000/api/jobs/');
