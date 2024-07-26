@@ -53,6 +53,7 @@
 import CriteriasList from '@/components/criteriasList.vue';
 import { Options, Vue } from 'vue-class-component';
 import { QBtn } from 'quasar';
+import { useStore } from 'vuex';
 
 @Options({
   components: {
@@ -62,6 +63,84 @@ import { QBtn } from 'quasar';
 })
 
 export default class DefineJob extends Vue {
+  store = useStore();
+title="";
+description="";
+category="";
+location="";
+job =""; 
+
+createjob() {
+          //const { id, title, description,category, location,job } = this.store.state.jobForm;
+          this.store.commit('addJob',{id :this.store.state.jobForm?.id, title:this.title, description:this.description,category:this.category, Location:this.location,job:this.job});
+          this.store.dispatch('addJob');
+          //console.log(this.store.state.jobForm);
+        }
+        updatejob() {
+          //const { id, title, description,category, location,job } = this.store.state.jobForm;
+          this.store.commit('updateJob',{id :this.store.state.jobForm?.id, title:this.title, description:this.description,category:this.category, Location:this.location,job:this.job});
+          this.store.dispatch('updateJob');
+        }
+        deletejob() {
+          //const { id, title, description,category, location,job } = this.store.state.jobForm;
+          this.store.commit('deleteJob',{id :this.store.state.jobForm?.id, title:this.title, description:this.description,category:this.category, Location:this.location,job:this.job});
+          this.store.dispatch('deleteJob');
+        }
+
+
+        async addJob() {
+          try{
+          const response = await fetch('http://localhost:8000/jobs/', {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json',
+              },
+              //body: JSON.stringify(this.state.jobsForm),
+          });
+          const data = await response.json();
+          console.log(data);
+          
+      }catch(error) {
+          console.error("Error during add job:", error)
+    
+    }
+      }
+      async updateJob() {
+          try{
+          const response = await fetch('http://localhost:8000/jobs/5eb7cf5a86d9755df3a6c593', {
+              method: 'PUT',
+              headers: {
+                  'Content-Type': 'application/json',
+              },
+              //body: JSON.stringify(this.state.jobsForm),
+          });
+          const data = await response.json();
+          console.log(data);
+          
+      }catch(error) {
+          console.error("Error during add job:", error)
+    
+    }
+      }
+      async deleteJob() {
+          try{
+          const response = await fetch('http://localhost:8000/jobs/5eb7cf5a86d9755df3a6c593', {
+              method: 'DELETE',
+              headers: {
+                  'Content-Type': 'application/json',
+              },
+              //body: JSON.stringify(this.state.jobsForm),
+          });
+          const data = await response.json();
+          console.log(data);
+          
+      }catch(error) {
+          console.error("Error during add job:", error)
+    
+    }
+      }
+
+
 
 }
 </script>

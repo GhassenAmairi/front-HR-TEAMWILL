@@ -3,7 +3,7 @@ import { createStore } from "vuex";
 
 import { jobsForm, loginForm, userForm } from "@/types";
 
-
+import axios from "axios";
 
 
 export default  createStore({
@@ -111,21 +111,21 @@ actions: {
         }
     },
 
-    async fetchJobs({ commit ,state}) {
+    async fetchJobs({ commit, state}) {
         const response = await fetch('http://localhost:8000/api/jobs/');
         const data = await response.json();
         commit('setJobs', data);
     },
-    async addJob({ commit  ,state}) {
+    async addJob({ commit, state}) {
         try{
-        const response = await fetch('http://localhost:8000/jobs/', {
+        const response = await axios.post('http://localhost:8000/jobs/', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(this.state.jobsForm),
         });
-        const data = await response.json();
+        const data = response.data;
         console.log(data);
         commit('addJob', data);
     }catch(error) {
@@ -135,14 +135,14 @@ actions: {
     },
     async updateJob({ commit , state} ) {
         try{
-        const response = await fetch(`http://localhost:8000/jobs/5eb7cf5a86d9755df3a6c593`, {
+        const response = await axios.put(`http://localhost:8000/jobs/5eb7cf5a86d9755df3a6c593`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(this.state.jobsForm),
         });
-        const data = await response.json();
+        const data = response.data;
         console.log(data);
         commit('updateJob', data);
     }catch(error) {
@@ -152,14 +152,14 @@ actions: {
 },
     async deleteJob({ commit ,state}) {
         try{
-        const response =await fetch(`http://localhost:8000/jobs/5eb7cf5a86d9755df3a6c593`, {
+        const response =await axios.delete(`http://localhost:8000/jobs/5eb7cf5a86d9755df3a6c593`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(this.state.jobsForm),
+           // body: JSON.stringify(this.state.jobsForm),
         })
-        const data = await response.json();
+        const data = response.data;
         console.log(data);
         commit('deleteJob', data);
     }catch(error) {
