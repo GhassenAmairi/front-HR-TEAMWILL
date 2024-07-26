@@ -19,9 +19,9 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import("@/components/searchCriterias/searchCriterias.vue"),
   },
   {
-    path: "/RechercheView",
+    path: "/filter",
     name: "RechercheView",
-    component: () => import("../views/RechercheView.vue"),
+    component: () => import("../views/DefineJobView.vue"),
   },
   {
     path: "/Job",
@@ -29,9 +29,9 @@ const routes: Array<RouteRecordRaw> = [
     component: JobComponent,
   },
   {
-    path: "/definejob",
+    path: "/DefineJob",
     name: "DefineJob",
-    component: () => import("../views/DefineJobView.vue"),
+    component: () => import("../views/RechercheView.vue"),
   },
   {
     path: "/dashbord",

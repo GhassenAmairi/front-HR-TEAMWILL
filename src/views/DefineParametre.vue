@@ -61,7 +61,7 @@
             </q-item-section>
           </div>
           <div class="button-group text-center">
-            <q-btn class="continue" text-color="white" label="Continue" href="/defineJob">
+            <q-btn class="continue" text-color="white" label="Continue" href="/jobDetails">
               <q-icon name="keyboard_arrow_right" style="color: white;" />
             </q-btn>
           </div>

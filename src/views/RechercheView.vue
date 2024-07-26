@@ -1,6 +1,6 @@
 <template>
   <div class="row">
-    <criterias-list :expliciteRoute="'dashbord'"></criterias-list>
+    <criterias-list ></criterias-list>
 
     <div class="col-md-8">
       <div class="content">
@@ -11,7 +11,7 @@
             <q-btn flat color="white" label="Learn More" class="learn" />
           </q-banner>
 
-          <q-btn label="Add term" class="mb-3 addBTn" />
+          <q-btn label="Add term" class="mb-3 addBTn" @click="addRow" />
 
           <q-table flat bordered color="primary" row-key="name" :columns="columns" :rows="rows" class="enhanced-table">
             <template v-slot:top-left>
@@ -28,13 +28,15 @@
                   <tbody>
                     <tr v-for="(row, index) in rows" :key="index" class="table-row">
                       <td>
-                        <q-select use-input v-model="row.category" outlined dense :options="categories" label="Category" class="status-select no-arrow" />
+                        <q-select use-input v-model="row.category" outlined dense :options="categories" label="Category"
+                          class="status-select no-arrow" />
                       </td>
                       <td>
                         <q-input v-model="row.term" outlined dense label="Term" class="status-select" />
                       </td>
                       <td>
-                        <q-input v-model="row.weight" outlined dense label="Weight" type="number" class="status-select" />
+                        <q-input v-model="row.weight" outlined dense label="Weight" type="number"
+                          class="status-select" />
                       </td>
                       <td>
                         <q-btn flat round dense icon="delete" color="red" @click="deleteRow(index)" />
@@ -46,65 +48,72 @@
             </template>
           </q-table>
         </div>
-        <div class="row btns" >
-            <div  style="position: absolute; margin-top: 5px;">
-                    <q-item-section @click="$router.push('/dashbord')">
-                      <button style="color: grey;">
-                        <q-icon name="keyboard_arrow_left" style="color: grey;" />
-                        Back
-                      </button>
-                    </q-item-section>
-                  </div>
-                  <div class="button-group text-center" @click="$router.push('/text')">
-                    <q-btn class="continue" text-color="white" label="Continue" >
-                      <q-icon name="keyboard_arrow_right" style="color: white;" />
-                    </q-btn>
-                  </div>
-                </div>
+        <div class="row btns">
+          <div style="position: absolute; margin-top: 5px;">
+            <q-item-section @click="$router.push('/dashbord')">
+              <button style="color: grey;">
+                <q-icon name="keyboard_arrow_left" style="color: grey;" />
+                Back
+              </button>
+            </q-item-section>
+          </div>
+          <div class="button-group text-center" @click="$router.push('/defineParametre')">
+            <q-btn class="continue" text-color="white" label="Continue">
+              <q-icon name="keyboard_arrow_right" style="color: white;" />
+            </q-btn>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { Options, Vue } from 'vue-class-component';
-import { ref } from 'vue';
+import { defineComponent, ref } from 'vue';
 import { QBtn, QInput, QSelect, QTable } from 'quasar';
 import CriteriasList from '@/components/criteriasList.vue';
 
-@Options({
+export default defineComponent({
+  name: 'RechercheView',
   components: {
     QBtn,
     CriteriasList,
     QTable,
     QSelect,
     QInput
+  },
+  setup() {
+    const columns = [
+      { name: 'category', label: 'Category', align: 'left' },
+      { name: 'term', label: 'Term', align: 'left' },
+      { name: 'weight', label: 'Weight', align: 'left' },
+      { name: 'action', label: 'Action', align: 'left' },
+    ];
+
+    const rows = ref([
+      { category: 'Location', term: 'Paris, France', weight: 5 },
+      { category: 'Keyword', term: 'Javascript', weight: 4 },
+    ]);
+
+    const categories = ['Location', 'Keyword', 'Industry'];
+
+    const addRow = () => {
+      rows.value.push({ category: '', term: '', weight: 0 });
+    };
+
+    const deleteRow = (index: number) => {
+      rows.value.splice(index, 1);
+    };
+
+    return {
+      columns,
+      rows,
+      categories,
+      addRow,
+      deleteRow,
+    };
   }
-})
-
-export default class RechercheView extends Vue {
-  selection = ref('');
-  inputText = ref('');
-  varia = "";
-
-  columns = [
-    { name: 'category', label: 'Category', align: 'left' },
-    { name: 'term', label: 'Term', align: 'left' },
-    { name: 'weight', label: 'Weight', align: 'left' },
-    { name: 'action', label: 'Action', align: 'left' },
-  ];
-
-  rows = ref([
-    { category: 'Location', term: 'Paris, France', weight: 5 },
-    { category: 'Keyword', term: 'Javascript', weight: 4 },
-  ]);
-
-  categories = ['Location', 'Keyword', 'Industry'];
-
-  deleteRow(index: number) {
-    this.rows.value.splice(index, 1);
-  }
-}
+});
 </script>
 
 <style scoped lang="scss">
@@ -132,9 +141,7 @@ export default class RechercheView extends Vue {
   margin-bottom: 1.5rem;
   color: gray;
 }
-.btns {
-  margin-top: 3%;
-}
+
 .learn {
   position: absolute;
   right: 0;
@@ -147,9 +154,23 @@ export default class RechercheView extends Vue {
 }
 
 .q-banner {
-  background-color: #4CAF50; /* Adjust this to match the green color in the mockup */
+  background-color: #4CAF50;
+  /* Adjust this to match the green color in the mockup */
   color: white;
   margin-bottom: 20px;
+}
+
+.btns {
+  margin-top: 3%;
+}
+
+.continue {
+  background-color: #93a84c;
+  color: aliceblue;
+  border-radius: 6px;
+  position: absolute;
+  right: 0;
+  text-decoration: none !important;
 }
 
 .bannerClass {
@@ -186,14 +207,6 @@ export default class RechercheView extends Vue {
   margin-left: 2%;
 }
 
-.continue {
-  background-color: #93a84c;
-  color: aliceblue;
-  border-radius: 6px;
-  position: absolute;
-  right: 0;
-  text-decoration: none !important;
-}
 .define {
   color: black;
   font-weight: 600;
@@ -225,6 +238,8 @@ export default class RechercheView extends Vue {
 .q-input {
   width: 100%;
 }
+
+/* Custom styles to hide the dropdown arrow */
 .no-arrow .q-field__append {
   display: none;
 }
