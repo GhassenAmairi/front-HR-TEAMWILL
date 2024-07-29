@@ -11,7 +11,6 @@
         </q-list>
       </q-menu>
     </q-btn>
-    <search-criterias />
     <router-view />
   </q-layout>
 </template>
