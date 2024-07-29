@@ -12,7 +12,7 @@
           <h3>Login</h3>
         </div>
         <div class="q-pa-md">
-          <q-form @submit.prevent="onLogin">
+          <q-form @submit.prevent="login">
             <div class="text-center text-grey-7 mb-4">
               <q-item-section>
                 <q-input
@@ -82,8 +82,8 @@ import { QBtn } from 'quasar';
   },
 })
 export default class LoginView extends Vue {
-  store = useStore();
-  username = "";
+ store = useStore();
+ username = "";
   password = "";
   error = reactive({ value: "" });
   user: LoginResponnse = { token: "", access_token: "", token_type: "" };
@@ -95,6 +95,7 @@ export default class LoginView extends Vue {
   mounted() {
     this.validateCredentials(this.username, this.password);
   }
+  
 
   login() {
     this.store.commit('setLogin', { username: this.username, password: this.password });
@@ -120,49 +121,70 @@ export default class LoginView extends Vue {
     const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
     return re.test(email);
   }
-
-  validatePassword(password: string): boolean {
-    const re = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/;
-    return re.test(password);
-  }
-
-  validateCredentials(username: string, password: string): boolean {
+   validateCredentials(username: string, password: string) {
     const emailRe = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
     const passwordRe = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/;
 
     return emailRe.test(username) && passwordRe.test(password);
   }
 
+  //async loginWithCredentials(username: string, password: string) {
+    //try {
+     // const formData = {
+       // username: '',
+        //password: '',
+        //full_name: '',
+        //email: '',
+        //body: '',
+      //};
+      //const response = await axios.post('http://localhost:8000/token/', formData, {
+        //method: 'POST',
+        //headers: {
+          //'Content-Type': 'application/json',
+        //},
+      //});
+  //return emailRe.test(username) && passwordRe.test(password);
+//} catch (err) {
+  //this.errors = (err as Error).message;
+  //this.loggedIn = false;
+  //}
+//}
+
   async loginWithCredentials(username: string, password: string) {
-    try {
-      const formData = {
-        username: '',
-        password: '',
-        full_name: '',
-        email: '',
-        body: '',
-      };
-      const response = await axios.post('http://localhost:8000/token/', formData, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
+      try {
+        const FormData =  {
+     username: '',
+      password: '',
+      full_name: '',
+      email: '',
+      body: '',
+   }
+        const response =  await  axios.post('http://localhost:8000/token/', FormData, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          //body: JSON.stringify({ username: username, password: password })
+        });
 
-      if (response.status !== 200) {
-        throw new Error('Invalid username or password');
-      }
+        if (response.status!== 200) {
+          throw new Error('Invalid username or password');
+        }
+        console.log('Login successful:', response);
+        this.loggedIn= true;
+        this.errors 
 
-      const data = await response.data();
-      this.loggedIn = true;
-      this.errors = '';
-      this.$router.push('/dashbord');
-    } catch (err) {
-      this.errors = this.errors || (err as Error).message;
+        const data = await response.data();
+        console.log('');
+        this.$router.push('/dashbord');
+      } catch (err) {
+        this.errors =   this.errors || (err as Error).message ;
       this.loggedIn = false;
+      }
     }
+   
+  
   }
-}
 </script>
 <style scoped lang="scss">
 .login-page {

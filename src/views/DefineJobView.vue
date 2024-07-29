@@ -116,8 +116,31 @@ import CriteriasList from '@/components/criteriasList.vue';
     ...mapActions(['showOptions', 'selectOption']),
   },
 })
-export default class DefineJobView extends Vue {
-  store = useStore();
+
+export default class DefineJob extends Vue {
+store = useStore();
+title="";
+description="";
+category="";
+location="";
+job =""; 
+
+createjob() {
+          //const { id, title, description,category, location,job } = this.store.state.jobForm;
+          this.store.commit('addJob',{id :this.store.state.jobForm?.id, title:this.title, description:this.description,category:this.category, Location:this.location,job:this.job});
+          this.store.dispatch('addJob');
+          //console.log(this.store.state.jobForm);
+        }
+        updatejob() {
+          //const { id, title, description,category, location,job } = this.store.state.jobForm;
+          this.store.commit('updateJob',{id :this.store.state.jobForm?.id, title:this.title, description:this.description,category:this.category, Location:this.location,job:this.job});
+          this.store.dispatch('updateJob');
+        }
+        deletejob() {
+          //const { id, title, description,category, location,job } = this.store.state.jobForm;
+          this.store.commit('deleteJob',{id :this.store.state.jobForm?.id, title:this.title, description:this.description,category:this.category, Location:this.location,job:this.job});
+          this.store.dispatch('deleteJob');
+        }
 }
 </script>
 

@@ -1,10 +1,13 @@
 import { createStore } from "vuex";
 import { jobsForm, loginForm, userForm } from "@/types";
 import { availableFilters, selectedFilters } from "@/store/types";
+import axios from "axios";
 
-export default createStore({
-  state: {
-    loginForm: loginForm,
+
+export default  createStore({
+state: {
+    loginForm : loginForm,
+
     activiteComponent: "",
     criterias: {
       NextStep: "profil"
@@ -119,6 +122,7 @@ export default createStore({
         console.error("Error during login:", error);
       }
     },
+
     async fetchJobs({ commit, state }) {
       const response = await fetch('http://localhost:8000/api/jobs/');
       const data = await response.json();
@@ -133,39 +137,40 @@ export default createStore({
           },
           body: JSON.stringify(state.jobsForm),
         });
-        const data = await response.json();
+        const data = response.data;
         console.log(data);
         commit('addJob', data);
       } catch (error) {
         console.error("Error during add job:", error);
       }
     },
-    async updateJob({ commit, state }) {
-      try {
-        const response = await fetch(`http://localhost:8000/jobs/5eb7cf5a86d9755df3a6c593`, {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(state.jobsForm),
+    async updateJob({ commit , state} ) {
+        try{
+        const response = await axios.put(`http://localhost:8000/jobs/5eb7cf5a86d9755df3a6c593`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(this.state.jobsForm),
+
         });
-        const data = await response.json();
+        const data = response.data;
         console.log(data);
         commit('updateJob', data);
       } catch (error) {
         console.error("Error during update job:", error);
       }
     },
-    async deleteJob({ commit, state }) {
-      try {
-        const response = await fetch(`http://localhost:8000/jobs/5eb7cf5a86d9755df3a6c593`, {
-          method: 'DELETE',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(state.jobsForm),
+    async deleteJob({ commit ,state}) {
+        try{
+        const response =await axios.delete(`http://localhost:8000/jobs/5eb7cf5a86d9755df3a6c593`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+           // body: JSON.stringify(this.state.jobsForm),
         })
-        const data = await response.json();
+        const data = response.data;
         console.log(data);
         commit('deleteJob', data);
       } catch (error) {
