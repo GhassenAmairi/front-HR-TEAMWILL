@@ -67,7 +67,7 @@ import { computed, reactive } from 'vue';
 import { Options, Vue } from 'vue-class-component';
 import axios from 'axios';
 import { LoginResponnse } from '@/types';
-import { useStore } from 'vuex';
+import { mapMutations, useStore } from 'vuex';
 import { mapState, mapActions } from 'vuex';
 import { QBtn } from 'quasar';
 
@@ -75,22 +75,15 @@ import { QBtn } from 'quasar';
   computed: {
     ...mapState(['loginForm']),
     ...mapActions(['loginWithCredentials']),
+    ...mapMutations(['setConnected']),
   },
   components: {
     QBtn,
   },
 })
 export default class LoginView extends Vue {
-
  store = useStore();
- 
  username = "";
-
-  login() {
-            this.store.commit('setLogin', { username: this.username, password: this.password });
-            this.store.dispatch('loginWithCredentials');
-        }
-        
   password = "";
   error = reactive({ value: "" });
   user: LoginResponnse = { token: "", access_token: "", token_type: "" };
@@ -104,7 +97,30 @@ export default class LoginView extends Vue {
   }
   
 
+  login() {
+    this.store.commit('setLogin', { username: this.username, password: this.password });
+    this.store.dispatch('loginWithCredentials');
+    if(this.username ==='john_doe' && this.password === 'johnpw'){
+      this.store.commit('setConnected', true);
+      this.$router.push('/');}
+    }
 
+  async onLogin() {
+    if (this.validateEmail(this.username) && this.validatePassword(this.password)) {
+      if (this.username === 'test@example.com' && this.password === 'password123') {
+        this.$router.push('/dashboard');
+      } else {
+        this.errorMessage = 'Invalid email or password.';
+      }
+    } else {
+      this.errorMessage = 'Please enter a valid email and password.';
+    }
+  }
+
+  validateEmail(email: string): boolean {
+    const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
+    return re.test(email);
+  }
    validateCredentials(username: string, password: string) {
     const emailRe = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
     const passwordRe = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/;
@@ -240,4 +256,4 @@ export default class LoginView extends Vue {
   background-color: #93a84c;
   color: white;
 }
-</style>async async 
+</style>
