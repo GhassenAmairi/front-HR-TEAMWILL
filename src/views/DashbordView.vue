@@ -53,16 +53,17 @@
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
-import { ref } from 'vue';
 import CriteriasList from '@/components/criteriasList.vue';
+
 
 @Options({
   components: {
     CriteriasList
-  }
+  },
+
+
 })
 export default class DashbordView extends Vue {
-  inputText = ref('');
 }
 </script>
 

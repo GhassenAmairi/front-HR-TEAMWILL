@@ -59,12 +59,12 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue';
+import {  ref } from 'vue';
 import { QForm, QInput, QExpansionItem, QSelect, QBtn } from 'quasar';
 import CriteriasList from '@/components/criteriasList.vue';
 
-export default defineComponent({
-  name: 'CampaignDetails',
+import { Options, Vue } from 'vue-class-component';
+@Options({
   components: {
     QForm,
     QInput,
@@ -73,34 +73,28 @@ export default defineComponent({
     CriteriasList,
     QBtn
   },
-  setup() {
-    const name = ref('');
-    const program = ref('');
-    const description = ref('');
-    const sender = ref(null);
-    const source = ref(null);
+  computed: {
+  },
+})
+export default class JobDeteils extends Vue {
 
-    const senderOptions = [
+     name = ref('');
+     program = ref('');
+     description = ref('');
+     sender = ref(null);
+     source = ref(null);
+
+     senderOptions = [
       { label: 'Sender 1', value: 'sender1' },
       { label: 'Sender 2', value: 'sender2' }
     ];
 
-    const sourceOptions = [
+     sourceOptions = [
       { label: 'Source 1', value: 'source1' },
       { label: 'Source 2', value: 'source2' }
     ];
-
-    return {
-      name,
-      program,
-      description,
-      sender,
-      source,
-      senderOptions,
-      sourceOptions
-    };
-  }
-});
+  
+}
 </script>
 
 <style scoped lang="scss">

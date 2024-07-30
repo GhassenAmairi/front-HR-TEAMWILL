@@ -73,7 +73,7 @@
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
-import { ref } from 'vue';
+
 import CriteriasList from '@/components/criteriasList.vue';
 import { QBtn } from 'quasar';
 import { useStore } from 'vuex';
@@ -84,7 +84,7 @@ import { useStore } from 'vuex';
   }
 })
 export default class DefineParametreView extends Vue {
-  selection = ref();
+ 
   private store = useStore();
   get openToWork() {
     return this.store.state.openToWork;
