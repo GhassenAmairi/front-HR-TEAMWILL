@@ -4,7 +4,7 @@
         <div class="col-md-8 content" >
         <h1 style="margin-top: 5%;">Describe what you are looking for in a candidate</h1>
       <div class="row">
-        <textarea class="large-textarea"></textarea>
+        <textarea class="large-textarea" v-model="store.state.inputText"></textarea>
       </div>
       <div class="q-pa-md q-gutter-sm" style="position: absolute ; margin-top: 2%;">
               <q-item-section @click="$router.push('/dashbord')">
@@ -28,14 +28,23 @@
   import CriteriasList from "@/components/criteriasList.vue";
 import { QBtn } from "quasar";
   import { Options, Vue } from "vue-class-component";
+import { mapState, useStore } from "vuex";
   
   @Options({
     components: {
       CriteriasList,
       QBtn
     },
+    computed: {
+
+...mapState(['inputText']
+ 
+),
+}
   })
-  export default class TextComponent extends Vue {}
+  export default class TextComponent extends Vue {
+    store = useStore();
+  }
   </script>
   
   <style scoped>

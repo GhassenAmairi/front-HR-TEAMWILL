@@ -51,6 +51,9 @@ export const userForm: userForm = {
     role: '',
 }
 
+export const documentForm = {
+    document: '',
+}
   
 
   

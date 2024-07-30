@@ -12,6 +12,7 @@
           </q-banner>
 
           <q-btn label="Add term" class="mb-3 addBTn" @click="addRow" />
+          <q-btn label="Add job" class="mb-3 addBTn" @click="addJob()" />
 
           <q-table flat bordered color="primary" row-key="name" :columns="columns" :rows="rows" class="enhanced-table">
             <template v-slot:top-left>
@@ -72,9 +73,16 @@
 import { defineComponent, ref } from 'vue';
 import { QBtn, QInput, QSelect, QTable } from 'quasar';
 import CriteriasList from '@/components/criteriasList.vue';
+import { Options, Vue } from 'vue-class-component';
+import { mapState, mapActions, useStore } from 'vuex';
 
-export default defineComponent({
-  name: 'RechercheView',
+@Options({
+ 
+    computed: {
+    ...mapState(['jobForm']),
+    ...mapActions(['addJob','updateJob','deleteJob','get_by_id_job']),
+  },
+  
   components: {
     QBtn,
     CriteriasList,
@@ -82,38 +90,80 @@ export default defineComponent({
     QSelect,
     QInput
   },
-  setup() {
-    const columns = [
+})
+export default class RechercheView extends Vue{
+  jobsForm={}
+  store = useStore();
+
+
+  
+  createjob() {
+          //const { id, title, description,category, location,job } = this.store.state.jobForm;
+          this.store.commit('addJob',{id :this.store.state.jobForm?.id, title:this.store.state.jobForm?.title, description:this.store.state.jobForm?.description,category:this.store.state.jobForm?.category, Location:this.store.state.jobForm?.location,job:this.store.state.jobForm?.job});
+          this.store.dispatch('addJob');
+          //console.log(this.store.state.jobForm);
+        }
+  async addJob() {
+          try{
+          const response = await fetch('http://localhost:8000/jobs/', {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(this.store.state.jobsForm),
+          });
+          const data = await response.json();
+          console.log(data);
+          
+      }catch(error) {
+          console.error("Error during add job:", error)
+    
+    }
+
+      }
+    async get_byId_Jobs() {
+          try{
+          const response = await fetch('http://localhost:8000/jobs/5eb7cf5a86d9755df3a6c593', {
+              method: 'GET',
+              headers: {
+                  'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(this.store.state.jobsForm),
+          });
+          const data = await response.json();
+          console.log(data);
+          
+      }catch(error) {
+          console.error("Error during get by id  job:", error)
+    
+    }
+
+      }
+    
+     columns = [
       { name: 'category', label: 'Category', align: 'left' },
       { name: 'term', label: 'Term', align: 'left' },
       { name: 'weight', label: 'Weight', align: 'left' },
       { name: 'action', label: 'Action', align: 'left' },
     ];
 
-    const rows = ref([
+     rows = ref([
       { category: 'Location', term: 'Paris, France', weight: 5 },
       { category: 'Keyword', term: 'Javascript', weight: 4 },
     ]);
 
-    const categories = ['Location', 'Keyword', 'Industry'];
+     categories = ['Location', 'Keyword', 'Industry'];
 
-    const addRow = () => {
-      rows.value.push({ category: '', term: '', weight: 0 });
+     addRow = () => {
+      this.rows.value.push({ category: '', term: '', weight: 0 });
     };
 
-    const deleteRow = (index: number) => {
-      rows.value.splice(index, 1);
+     deleteRow = (index: number) => {
+      this.rows.value.splice(index, 1);
     };
 
-    return {
-      columns,
-      rows,
-      categories,
-      addRow,
-      deleteRow,
-    };
-  }
-});
+
+}
 </script>
 
 <style scoped lang="scss">

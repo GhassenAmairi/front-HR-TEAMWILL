@@ -96,6 +96,15 @@ import { mapState, mapActions, mapGetters, mapMutations, useStore } from 'vuex';
 import CriteriasList from '@/components/criteriasList.vue';
 
 @Options({
+  
+  computed: {
+    ...mapState(['jobForm']),
+    ...mapActions(['addJob','updateJob','deleteJob']),
+    ...mapActions(['showOptions', 'selectOption']),
+    ...mapState(['dialog', 'currentFilter', 'selectedFilters']),
+    ...mapGetters(['options', 'capitalizedFilter']),
+    ...mapMutations(['setDialog']),
+  },
   components: {
     CriteriasList,
     QBtn,
@@ -107,14 +116,7 @@ import CriteriasList from '@/components/criteriasList.vue';
     QItem,
     QItemSection
   },
-  computed: {
-    ...mapState(['dialog', 'currentFilter', 'selectedFilters']),
-    ...mapGetters(['options', 'capitalizedFilter']),
-    ...mapMutations(['setDialog']),
-  },
-  methods: {
-    ...mapActions(['showOptions', 'selectOption']),
-  },
+
 })
 
 export default class DefineJob extends Vue {

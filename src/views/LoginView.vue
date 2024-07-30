@@ -76,6 +76,10 @@ import { QBtn } from 'quasar';
     ...mapState(['loginForm']),
     ...mapActions(['loginWithCredentials']),
     ...mapMutations(['setConnected']),
+    setLogin( ) {
+     this.store.commit('setLogin', { username: this.username, password: this.password });
+     this.store.dispatch('loginWithCredentials');
+    }
   },
   components: {
     QBtn,
@@ -91,7 +95,10 @@ export default class LoginView extends Vue {
   loggedIn = false;
   errors = '';
   message = '';
-
+  setLogin( ) {
+     this.store.commit('setLogin', { username: this.username, password: this.password });
+     this.store.dispatch('loginWithCredentials');
+    }
   mounted() {
     this.validateCredentials(this.username, this.password);
   }
@@ -106,7 +113,7 @@ export default class LoginView extends Vue {
     }
 
   async onLogin() {
-    if (this.validateEmail(this.username) && this.validatePassword(this.password)) {
+    if (this.validateEmail(this.username)) {
       if (this.username === 'test@example.com' && this.password === 'password123') {
         this.$router.push('/dashboard');
       } else {
@@ -150,16 +157,10 @@ export default class LoginView extends Vue {
   //}
 //}
 
-  async loginWithCredentials(username: string, password: string) {
+  async loginWithCredentials() {
       try {
-        const FormData =  {
-     username: '',
-      password: '',
-      full_name: '',
-      email: '',
-      body: '',
-   }
-        const response =  await  axios.post('http://localhost:8000/token/', FormData, {
+    
+        const response =  await  axios.post('http://localhost:8000/token/',  {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -168,7 +169,7 @@ export default class LoginView extends Vue {
         });
 
         if (response.status!== 200) {
-          throw new Error('Invalid username or password');
+          //throw new Error('Invalid username or password');
         }
         console.log('Login successful:', response);
         this.loggedIn= true;
