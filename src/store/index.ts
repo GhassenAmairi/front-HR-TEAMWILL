@@ -2,6 +2,7 @@ import { createStore } from "vuex";
 import { jobsForm, loginForm, userForm } from "@/types";
 import { availableFilters, selectedFilters } from "@/store/types";
 import axios from "axios";
+import createPersistedState from 'vuex-persistedstate';
 
 
 export default  createStore({
@@ -194,5 +195,10 @@ state: {
       const value = state.currentFilter;
       return value.charAt(0).toUpperCase() + value.slice(1);
     }
-  }
+  },
+  plugins: [
+    createPersistedState({
+      storage: window.localStorage,
+    })
+  ],
 });
